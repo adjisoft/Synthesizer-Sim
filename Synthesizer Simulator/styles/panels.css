@@ -1,0 +1,9 @@
+/* panels.css: gaya widget tambahan (grafik, matriks modulasi, rantai efek, browser preset, sequencer). */
+.pw{min-width:0;grid-column:span 4}.pw.r{grid-column:5/-1;grid-row:1}.pw.m{grid-column:4/-1;grid-row:1}.pw.f{grid-column:1/-1}
+#pnx .pw{grid-column:1/-1;grid-row:auto}
+.pw canvas{height:150px;margin:0}.pw small{display:block;opacity:.75;margin-bottom:4px}
+.ch{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.ch i{opacity:.5;font-style:normal}.ch button{min-height:30px;padding:3px 10px}.ch button.off{opacity:.45}.ch button.fx{border-style:dashed;cursor:default}
+.mx{display:grid;grid-template-columns:auto repeat(3,1fr);gap:4px 10px;align-items:center}.mx b{opacity:.85}.mx input{width:100%;min-height:0;padding:0;border:0;background:none;accent-color:var(--ac)}.mx output{display:block;text-align:center;opacity:.7}
+#pbr{margin-bottom:12px}#pbr summary{cursor:pointer;opacity:.85}#pbr input{margin-top:8px;width:100%;max-width:260px}#pl{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}#pl button{min-height:30px;padding:3px 10px}
+#sqs{height:208px;margin:10px 0 0;touch-action:none;cursor:pointer}#sqb{accent-color:var(--ac);min-height:0;padding:0;border:0;background:none;vertical-align:middle}
+@media(max-width:520px){.pw,.pw.r,.pw.m{grid-column:1/-1;grid-row:auto}}

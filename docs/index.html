@@ -2,18 +2,22 @@
 <!-- SynthLab: simulator sintesis web (3 synth chiptune 8-bit + 5 synth, grafik ADSR/filter, matriks modulasi, rantai efek, browser preset, sequencer). index.html memuat struktur halaman; logika di scripts/, gaya di styles/. -->
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>SynthLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@600;700&family=Cinzel:wght@600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#a79ad6"><link rel="icon" href="icon.svg">
 <link rel="stylesheet" href="styles/base.css">
 <link rel="stylesheet" href="styles/skins.css">
 <link rel="stylesheet" href="styles/themes.css">
-<link rel="stylesheet" href="styles/panels.css"></head><body data-s="x2"><main>
+<link rel="stylesheet" href="styles/panels.css">
+<link rel="stylesheet" href="styles/studio.css"></head><body data-s="x2"><main>
 <nav><div><span>Chiptune 8 Bit</span><button data-k="x2">X2-MARK</button><button data-k="x3">X3-MARK</button><button data-k="xf">XF-MARK</button></div>
-<div><span>Synth</span><button data-k="bw">BLASTWAVER</button><button data-k="sd">7-DEADLYSYNTH</button><button data-k="hs">HELLSTEP</button><button data-k="bsh">BLASTSHAPER</button><button data-k="dw">WAVECARVER</button></div></nav>
+<div><span>Synth</span><button data-k="bw">BLASTWAVER</button><button data-k="sd">7-DEADLYSYNTH</button><button data-k="hs">HELLSTEP</button><button data-k="bsh">BLASTSHAPER</button><button data-k="dw">WAVECARVER</button></div>
+<div><span>Studio</span><button data-k="fm">FM-STUDIO</button><button data-k="ks">PLUCKLAB</button><button data-k="dr">DRUMBOX</button></div></nav>
 <section class="pn"><div class="hd"><div><h1 id="ttl"></h1><div class="sub" id="sub"></div></div>
 <div class="tr"><select id="pre" aria-label="Preset"></select><input id="pn" size="10" placeholder="Nama preset" aria-label="Nama preset"><button id="sv">Simpan</button></div></div>
 <canvas id="sc" width="900" height="70"></canvas><details id="pbr" open><summary>Preset browser</summary><input id="pq" placeholder="Cari preset" aria-label="Cari preset"><div id="pl"></div></details><div class="g" id="ctl"></div></section>
 <section class="pn"><div class="hd"><h2>Efek, mastering, dan pitch bend</h2><button id="blk">Kunci bend: Off</button></div><div class="g" id="fx"></div></section>
 <section class="pn"><div class="hd"><h2>Step sequencer</h2><div class="tr"><button id="sqp">Play</button><label>BPM <input id="sqb" type="range" min="60" max="200" value="120" aria-label="BPM"></label><span id="sqv">120</span><button id="sqr">Acak</button><button id="sqc">Hapus</button></div></div><canvas id="sqs" width="640" height="208" aria-label="Step sequencer, klik atau seret untuk mengisi nada"></canvas></section>
-<section class="pn"><div class="tr" style="margin-bottom:10px"><button id="demo">Demo</button><button id="rec">Rekam</button><button id="ewav" disabled>WAV</button><button id="eogg" disabled>OGG</button><button id="emid" disabled>MIDI</button><button id="vw">Tampilan: Campuran</button><button id="cpu" title="Perkiraan beban, browser tidak menyediakan angka CPU asli">CPU: Off</button><span id="cpuv"></span><button id="om">Oktaf -</button><button id="op">Oktaf +</button><span id="oc"></span></div><div id="msg" aria-live="polite">Tekan tuts, atau pakai keyboard A–; dan W E T Y U O P. Geser piano dengan panah atau bilah di atasnya.</div><div class="rail" id="rail" aria-label="Geser piano"><i id="rth"></i></div><div class="kbr"><button id="kl" aria-label="Geser piano ke kiri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="M15 4 7 12l8 8"/></svg></button><div class="kbw" id="kbw"><div class="kb" id="kb"></div></div><button id="kr" aria-label="Geser piano ke kanan"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="M9 4l8 8-8 8"/></svg></button></div></section>
+<section class="pn"><div class="tr" style="margin-bottom:10px"><select id="dsel" aria-label="Lagu demo"></select><button id="demo">Demo</button><button id="r1">Rekam 1 loop</button><button id="sp">Simpan proyek</button><button id="bp">Buka proyek</button><input id="bpf" type="file" accept=".json,application/json" hidden><button id="eco">Hemat daya: Off</button><button id="rec">Rekam</button><button id="ewav" disabled>WAV</button><button id="eogg" disabled>OGG</button><button id="emid" disabled>MIDI</button><button id="vw">Tampilan: Campuran</button><button id="cpu" title="Perkiraan beban, browser tidak menyediakan angka CPU asli">CPU: Off</button><span id="cpuv"></span><button id="om">Oktaf -</button><button id="op">Oktaf +</button><span id="oc"></span></div><div id="msg" aria-live="polite">Tekan tuts, atau pakai keyboard A–; dan W E T Y U O P. Geser piano dengan panah atau bilah di atasnya.</div><div class="rail" id="rail" aria-label="Geser piano"><i id="rth"></i></div><div class="kbr"><button id="kl" aria-label="Geser piano ke kiri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="M15 4 7 12l8 8"/></svg></button><div class="kbw" id="kbw"><div class="kb" id="kb"></div></div><button id="kr" aria-label="Geser piano ke kanan"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="M9 4l8 8-8 8"/></svg></button></div></section>
+<section class="pn"><details id="dg"><summary>Uji cepat audio</summary><div class="tr" style="margin:8px 0"><button id="dgb">Jalankan uji</button></div><pre id="dgo" style="white-space:pre-wrap;margin:0"></pre></details></section>
 </main><script src="scripts/data.js"></script>
 <script src="scripts/engine.js"></script>
 <script src="scripts/shaper.js"></script>
@@ -23,4 +27,6 @@
 <script src="scripts/transport.js"></script>
 <script src="scripts/scope.js"></script>
 <script src="scripts/panels.js"></script>
-<script src="scripts/main.js"></script></body></html>
+<script src="scripts/main.js"></script>
+<script src="scripts/studio.js"></script>
+<script src="scripts/diag.js"></script></body></html>

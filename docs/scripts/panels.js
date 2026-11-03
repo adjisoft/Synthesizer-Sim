@@ -28,7 +28,7 @@ x.strokeStyle=x.fillStyle=AC;if(V.lfoD>0){cv(V.cut*2**(V.lfoD/1200),.3,2);cv(V.c
 function pnDraw(){const g=n=>getComputedStyle(document.body).getPropertyValue(n).trim();AC=g('--ac')||AC;FG=g('--fg')||FG;dEnv();dFlt();document.querySelectorAll('.ch button[data-i]').forEach(b=>b.classList.toggle('off',!isOn(b.dataset.i)));sqDraw()}
 // osiloskop + spektrum
 const psW=new Uint8Array(2048),psF=new Uint8Array(1024);
-(function pl(){requestAnimationFrame(pl);const c=$('#ps');if(!c)return;fit(c);const x=c.getContext('2d'),W=c.width,H=c.height,h=H/2;x.clearRect(0,0,W,H);x.strokeStyle=x.fillStyle=AC;x.lineWidth=2;
+(function pl(){requestAnimationFrame(pl);const c=$('#ps');if(!c||eco&&++ef1%4)return;fit(c);const x=c.getContext('2d'),W=c.width,H=c.height,h=H/2;x.clearRect(0,0,W,H);x.strokeStyle=x.fillStyle=AC;x.lineWidth=2;
 if(!an){x.fillRect(0,h/2,W,2);return}an.getByteTimeDomainData(psW);let s=0;while(s<512&&!(psW[s]<128&&psW[s+1]>=128))s++;if(s>=512)s=0;
 x.beginPath();for(let i=0;i<512;i++){const y=psW[s+i]/255*(h-8)+4;i?x.lineTo(i/511*W,y):x.moveTo(0,y)}x.stroke();
 an.getByteFrequencyData(psF);const n=64,bw=W/n,ny=ac.sampleRate/2;x.globalAlpha=.85;

@@ -1,5 +1,5 @@
 /* engine.js: mesin audio Web Audio (rantai efek, suara polifonik noteOn/noteOff, arpeggiator, panic). */
-let shg,sh1,shw,shd,shm,mode='m',bl=false,sum,rvb,lpG,laG,spn,spz,spOn,ord=[],live=0,xr=0,lp=0,sf,lc={},cur='x2',UI={},ac,bus,drive,crush,eq,mbc,ms,dly,fb,dw,rw,lfo,lfoG,vibG,nb,an,rcd,chunks=[],ev=[],t0=0,recording=false,mr,mrC=[],blobs={},act={},oct=3;
+let eco=false,ef1=0,ef2=0,shg,sh1,shw,shd,shm,mode='m',bl=false,sum,rvb,lpG,laG,spn,spz,spOn,ord=[],live=0,xr=0,lp=0,sf,lc={},cur='x2',UI={},ac,bus,drive,crush,eq,mbc,ms,dly,fb,dw,rw,lfo,lfoG,vibG,nb,an,rcd,chunks=[],ev=[],t0=0,recording=false,mr,mrC=[],blobs={},act={},oct=3;
 const dcv=a=>{if(!a)return null;const c=new Float32Array(2049),k=1+a*30;for(let i=0;i<2049;i++)c[i]=Math.tanh(k*(i/1024-1))/Math.tanh(k);return c};
 const ccv=b=>{if(b>=16)return null;const c=new Float32Array(2049),l=2**(b-1);for(let i=0;i<2049;i++)c[i]=Math.round((i/1024-1)*l)/l;return c};
 function init(){if(ac){ac.resume();return}
@@ -32,10 +32,10 @@ s(vibG.gain,V.vib);s(lfo.frequency,V.lfoR);s(lfoG.gain,V.lfoD);s(lpG.gain,V.lpt)
 mbc.forEach(c=>{s(c.threshold,-6-30*V.mb);s(c.ratio,1+7*V.mb)});
 if(lc.d!==V.drv){drive.curve=dcv(V.drv);lc.d=V.drv}if(lc.b!==V.bit){crush.curve=ccv(V.bit);lc.b=V.bit}
 const so=V.shmx>0;if(so!==lc.o){lc.o=so;try{so?shg.connect(sh1):shg.disconnect(sh1)}catch(e){}}if(lc.c!==shVer){sh1.curve=curveFrom(V.sc);lc.c=shVer}s(shg.gain,V.shin);s(shw.gain,V.shmx*V.sho);s(shd.gain,1-V.shmx);
-const ro=V.rev>0,dO=V.dmx>0;if(ro!==lc.rv){lc.rv=ro;try{ro?sum.connect(rvb):sum.disconnect(rvb)}catch(e){}}if(dO!==lc.dy){lc.dy=dO;try{dO?sum.connect(dly):sum.disconnect(dly)}catch(e){}}
+const ro=V.rev>0&&!eco,dO=V.dmx>0;if(ro!==lc.rv){lc.rv=ro;try{ro?sum.connect(rvb):sum.disconnect(rvb)}catch(e){}}if(dO!==lc.dy){lc.dy=dO;try{dO?sum.connect(dly):sum.disconnect(dly)}catch(e){}}
 for(const k in act){const q=act[k].fl;s(q.frequency,V.cut);s(q.Q,V.res)}}
 function log(m,on){if(recording)ev.push({t:ac.currentTime-t0,m,on})}
-function noteOn(m){init();if(act[m])noteOff(m);if(ord.length>9)noteOff(ord[0]);const t=ac.currentTime,f=440*2**((m-69)/12),g=ac.createGain(),fl=ac.createBiquadFilter(),ss=[],n=V.nosc,u=V.uni,lv=.5/Math.sqrt(n*u);
+function noteOn(m){init();if(act[m])noteOff(m);if(ord.length>(eco?3:9))noteOff(ord[0]);const t=ac.currentTime,f=440*2**((m-69)/12),g=ac.createGain(),fl=ac.createBiquadFilter(),ss=[],n=V.nosc,u=eco?1:V.uni,lv=.5/Math.sqrt(n*u);
 fl.frequency.value=V.cut;fl.Q.value=V.res;lfoG.connect(fl.detune);
 const add=(o,gv,dt)=>{const og=ac.createGain();og.gain.value=gv;if(V.bs||V.be){o.detune.setValueAtTime(dt+V.bs*100,t);o.detune.linearRampToValueAtTime(dt+V.be*100,t+V.bt)}else o.detune.value=dt;o.connect(og);og.connect(fl);vibG.connect(o.detune);lpG.connect(o.detune);o.start(t);ss.push(o);live++;o.addEventListener('ended',()=>{live--;try{vibG.disconnect(o.detune);lpG.disconnect(o.detune)}catch(e){}})};
 const noise=gv=>{const o=ac.createBufferSource();o.buffer=nb;o.loop=true;o.playbackRate.value=Math.max(.2,f/440);add(o,gv,0)};

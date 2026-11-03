@@ -1,0 +1,46 @@
+/* studio.css: skin FM-STUDIO, PLUCKLAB, DRUMBOX + anti menu tekan-lama (download/salin) di HP. */
+*{-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+body,.kb,.k,.fd,.rail,nav,button{-webkit-user-select:none;user-select:none}
+input,select{-webkit-user-select:text;user-select:text}
+canvas,svg,img{-webkit-user-drag:none}
+/* FM-STUDIO: panel studio putih-biru, knob cincin pengukur, fader tipis dengan isi biru */
+body[data-s=fm]{--bg:#c9ced6;--pn:linear-gradient(#f4f6f8,#dfe4ea);--fg:#1b2430;--ac:#0b79d0;--bd:#9aa5b3;--bw:1px;--sh:0 10px 26px #1b243033;--r:12px;--f:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--fs:14px;--kbg:#fff;--kr:50%;--ksh:0 3px 8px #1b243040;--ki:#1b2430;--hf:Orbitron,system-ui,sans-serif}
+body[data-s=fm] .pn::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;border-radius:12px 12px 0 0;background:linear-gradient(90deg,#0b79d0,#4de1ff)}
+body[data-s=fm] h1{letter-spacing:.1em}
+body[data-s=fm] .sec h2{color:var(--ac);text-transform:uppercase;letter-spacing:.15em;border-bottom:1px solid #9aa5b366;padding-bottom:4px;opacity:1}
+body[data-s=fm] canvas{background:#f7fafd}
+body[data-s=fm] .k{width:58px;height:58px;border:0;box-shadow:none;background:conic-gradient(from -135deg,var(--ac) 0 calc(var(--a,0deg) + 135deg),#c3cad4 0 270deg,transparent 0)}
+body[data-s=fm] .k::before{content:"";position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 35% 25%,#fff,#e3e8ee);box-shadow:0 2px 5px #1b243040}
+body[data-s=fm] .k i::after{width:3px;height:12px;top:10px;margin-left:-1.5px;border-radius:2px}
+body[data-s=fm] .fd::before,body[data-s=fm] .fd::after{opacity:.3}
+body[data-s=fm] .fd em{width:4px;margin-left:-2px;border-radius:2px;background:linear-gradient(to top,var(--ac) calc(var(--p,0)*100%),#c3cad4 0)}
+body[data-s=fm] .fd i{width:30px;height:14px;margin-left:-15px;border-radius:4px;bottom:calc(var(--p,0)*(100% - 14px));background:#fff;border:1px solid #9aa5b3;box-shadow:0 2px 5px #1b243040}
+body[data-s=fm] .fd i::after{background:var(--ac)}
+/* PLUCKLAB: kayu hangat, knob kuningan seperti pasak gitar, fader berupa senar dengan manik */
+body[data-s=ks]{--bg:#2b1a0f;--pn:repeating-linear-gradient(92deg,#0000 0 7px,#0002 7px 8px),linear-gradient(160deg,#9b6a3c,#6b4423 60%,#59371b);--fg:#fff3dc;--ac:#f3c35c;--bd:#2a170a;--bw:2px;--sh:0 14px 30px #000a,inset 0 2px 0 #ffd9a044;--r:22px;--f:Georgia,'Times New Roman',serif;--fs:15px;--kbg:radial-gradient(circle at 35% 28%,#fbe7a6,#b8862b 70%);--kr:30%;--ksh:0 5px 8px #000a,inset 0 1px 1px #fff8;--ki:#3a2208;--hf:Georgia,serif}
+body[data-s=ks] .pn::before{content:"";position:absolute;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;pointer-events:none;opacity:.5;background:radial-gradient(#120804 52%,#e9c27a 54% 60%,#120804 62% 70%,transparent 72%)}
+body[data-s=ks] h1{font-style:italic;letter-spacing:.06em;text-shadow:0 2px 0 #2a170a}
+body[data-s=ks] .sec h2{font-style:italic;letter-spacing:.08em;opacity:1;border-bottom:2px solid #2a170a55;padding-bottom:3px}
+body[data-s=ks] canvas{background:#1d0f06}
+body[data-s=ks] .k::before{content:"";position:absolute;inset:8px;border-radius:30%;border:2px solid #3a220844}
+body[data-s=ks] .k i::after{width:8px;height:8px;border-radius:50%;top:6px;margin-left:-4px}
+body[data-s=ks] .fd em{width:2px;margin-left:-1px;border-radius:0;background:linear-gradient(90deg,#fff3dc,#b9a58a)}
+body[data-s=ks] .fd i{width:26px;height:26px;margin-left:-13px;border-radius:50%;bottom:calc(var(--p,0)*(100% - 26px));background:radial-gradient(circle at 35% 30%,#fbe7a6,#b8862b 70%)}
+body[data-s=ks] .fd i::after{left:50%;right:auto;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#3a2208}
+/* DRUMBOX: panel drum machine krem, strip 4 warna, knob hitam, tutup fader berwarna */
+body[data-s=dr]{--bg:#111;--pn:linear-gradient(#d9d4c6,#c6c0b0);--fg:#1d1a14;--ac:#e8402a;--bd:#1d1a14;--bw:2px;--sh:0 10px 0 #0008;--r:6px;--f:'Arial Narrow','Liberation Sans Narrow',Arial,sans-serif;--fs:13px;--kbg:radial-gradient(circle at 40% 30%,#4a4a4a,#101010 70%);--kr:50%;--ksh:0 4px 0 #000,inset 0 1px 1px #fff4;--ki:#fff;--hf:Impact,'Arial Black',sans-serif}
+body[data-s=dr] .pn::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:linear-gradient(90deg,#e8402a 0 25%,#f58a1f 25% 50%,#f7c722 50% 75%,#f2eedc 75%)}
+body[data-s=dr] .pn{padding-top:20px}
+body[data-s=dr] h1{text-transform:uppercase;letter-spacing:.08em}
+body[data-s=dr] .sec h2{display:inline-block;background:#1d1a14;color:#f2eedc;padding:2px 10px;border-radius:2px;opacity:1;text-transform:uppercase;letter-spacing:.1em}
+body[data-s=dr] canvas{background:#e9e4d4}
+body[data-s=dr] .kw:nth-child(3n+1) .k i::after{background:#e8402a}
+body[data-s=dr] .kw:nth-child(3n+2) .k i::after{background:#f7c722}
+body[data-s=dr] .kw:nth-child(3n) .k i::after{background:#f58a1f}
+body[data-s=dr] .fd em{width:6px;border-radius:0}
+body[data-s=dr] .fd i{width:34px;height:22px;margin-left:-17px;bottom:calc(var(--p,0)*(100% - 22px));border-radius:2px;box-shadow:0 3px 0 #000;background:#e8402a}
+body[data-s=dr] .fd i::after{height:3px;background:#fff}
+body[data-s=dr] .fw:nth-child(4n+2) .fd i{background:#f58a1f}
+body[data-s=dr] .fw:nth-child(4n+3) .fd i{background:#f7c722}
+body[data-s=dr] .fw:nth-child(4n) .fd i{background:#f2eedc}
+body[data-s=dr] nav span{color:#f2eedc;opacity:.9}

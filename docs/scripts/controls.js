@@ -30,7 +30,7 @@ if(mode!='m'){s.show.forEach(id=>mk(id,c));FXK.forEach(id=>mk(id,x));return}
 const OS=['w1','w2','w3','o1','o2','o3','nosc','uni','det','sub','nz'],sh=s.show;
 grp(c,sh.filter(i=>OS.includes(i)),'Oscillator');const WS=['shin','shmx','sho'];grp(c,sh.filter(i=>WS.includes(i)),'Waveshaper');grp(c,sh.filter(i=>!OS.includes(i)&&!FD.has(i)&&!WS.includes(i)),'Filter, warna, dan modulasi');grp(c,sh.filter(i=>FD.has(i)),'Envelope');
 grp(x,['mb','dt','dfb','dmx','rev','sm'],'Dinamika dan ruang');grp(x,['eqL','eqM','eqH','vol'],'EQ dan master');grp(x,['bs','be','bt'],'Pitch bend')}
-function pick(k){cur=k;document.body.dataset.s=k;const s=S[k];$('#ttl').textContent=s.n;$('#sub').textContent=s.g;render();
+function pick(k){cur=k;document.body.dataset.s=S[k].skin||k;const s=S[k];$('#ttl').textContent=s.n;$('#sub').textContent=s.g;render();
 document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.k==k));fillPre();loadPre(Object.keys(s.pre)[0])}
 FXK.forEach(id=>mk(id,$('#fx')));
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{stopDemo();pick(b.dataset.k)});
